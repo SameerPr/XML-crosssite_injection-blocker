@@ -39,35 +39,12 @@ function isMaliciousFormData(data){
 }
 
 chrome.webRequest.onBeforeRequest.addListener(
-
- (details) => {
-
-  // console.log(details); 
-
-  let isMalicious = false;
-
-  if(details.requestBody !== undefined && details.requestBody.formData !== undefined) 
-
-  {
-
-   isMalicious = isMaliciousFormData(details.requestBody.formData.data);   
-
-  } 
-
-  else
-
-  {
-
-   isMalicious = isMaliciousUrl(details.url);
-
-  }
-
-  return {cancel: isMalicious };
-
- },
-
- {urls: ["<all_urls>"]},
-
- ["requestBody","blocking"]
-
+(details) => {
+		// console.log(details); 
+		let isMalicious = false;
+		if(details.requestBody !== undefined && details.requestBody.formData !== undefined) isMalicious = isMaliciousFormData(details.requestBody.formData);
+		return {cancel: isMalicious || isMaliciousUrl(details.url)};
+	},
+	{urls: ["<all_urls>"]},
+	["requestBody","blocking"]
 );
