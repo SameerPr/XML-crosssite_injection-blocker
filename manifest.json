@@ -1,6 +1,7 @@
 {
 	"name": "xss-blocker",
 	"version": "0.1",
+	"description": "An Extension to block XSS cross site injection",
 	"manifest_version": 2,
 	"permissions": [
 		// "webNavigation",
