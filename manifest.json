@@ -1,0 +1,14 @@
+{
+	"name": "xss-blocker",
+	"version": "0.1",
+	"manifest_version": 2,
+	"permissions": [
+		// "webNavigation",
+		"webRequest",
+		"webRequestBlocking",
+		"<all_urls>"
+	],
+	"background": {
+    "scripts": ["background.js"]
+ 	}
+}
