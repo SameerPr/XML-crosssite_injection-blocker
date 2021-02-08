@@ -1,13 +1,22 @@
+// function isMaliciousUrl(url){
+// 	let params = (new URL(url)).searchParams;
+// 	var str = params.get('data')
+// 	if(str != null) str = str.trim();
+// 	console.log(str);
+// 	var patt1 = /<[ ]*script.*>.*<\/[ ]*script[ ]*>$/i;
+// 	var patt2 = /<[ ]*img.*(\".*\"|>)$/i;
+// 	var patt3 = /(<|\\<).+(alert|onload|onerror|onmouseover|onclick|onsubmit).*>$/i;
+// 	// console.log(patt1.test(str));
+// 	return patt1.test(str) || patt2.test(str) || patt3.test(str) || url.includes("googlesyndication.com");
+// }
 function isMaliciousUrl(url){
 	let params = (new URL(url)).searchParams;
 	var str = params.get('data')
 	if(str != null) str = str.trim();
 	console.log(str);
-	var patt1 = /<[ ]*script.*>.*<\/[ ]*script[ ]*>$/i;
-	var patt2 = /<[ ]*img.*(\".*\"|>)$/i;
-	var patt3 = /(<|\\<).+(alert|onload|onerror|onmouseover|onclick|onsubmit).*>$/i;
-	// console.log(patt1.test(str));
-	return patt1.test(str) || patt2.test(str) || patt3.test(str) || url.includes("googlesyndication.com");
+	var patt1 = /<[ ]*\/?[ ]*script.*>/i;
+	var patt2 = /<[ ]*(a|img|svg|body|html|embed|object|iframe|audio|video).+(src|href|on.+).*=.*/i;
+	return patt1.test(str) || patt2.test(str) || url.includes("googlesyndication.com");
 }
 
 function isMaliciousFormData(data){
