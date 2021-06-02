@@ -1,32 +1,23 @@
-// function isMaliciousUrl(url){
-// 	let params = (new URL(url)).searchParams;
-// 	var str = params.get('data')
-// 	if(str != null) str = str.trim();
-// 	console.log(str);
-// 	var patt1 = /<[ ]*script.*>.*<\/[ ]*script[ ]*>$/i;
-// 	var patt2 = /<[ ]*img.*(\".*\"|>)$/i;
-// 	var patt3 = /(<|\\<).+(alert|onload|onerror|onmouseover|onclick|onsubmit).*>$/i;
-// 	// console.log(patt1.test(str));
-// 	return patt1.test(str) || patt2.test(str) || patt3.test(str) || url.includes("googlesyndication.com");
-// }
 function isMaliciousUrl(url){
 	let params = (new URL(url)).searchParams;
 	var str = params.get('data')
 	if(str != null) str = str.trim();
-	console.log(str);
-	var patt1 = /<[ ]*\/?[ ]*script.*>/i;
-	var patt2 = /<[ ]*(a|img|svg|body|html|embed|object|iframe|audio|video).+(src|href|on.+).*=.*/i;
-	return patt1.test(str) || patt2.test(str) || url.includes("googlesyndication.com");
+	// console.log(str);
+	var patt1 = /<[ ]*\/?[ ]*(script|meta|link|frame|iframe).*>/is;
+	var patt2 = /(<|\\<).+(ondblclick|onclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onload|onunload|onerror)=.*(\".*\"|>)$/is;
+	var patt3 = /<.+(javascript\s*:).*(\".*\"|>)$/is ;
+	var patt4 = /(<|\\<).+alert.*(\".*\"|>)$/i;
+	return patt1.test(str) || patt2.test(str) || patt3.test(str) || patt4.test(str)  || url.includes("googlesyndication.com");
 }
 
 function isMaliciousFormData(data){
 	var str = data[0].trim();
-	var patt1 = /<[ ]*script.*>.*<\/[ ]*script[ ]*>$/i;
-	var patt2 = /<[ ]*img.*(\".*\"|>)$/i;
-	var patt3 = /(<|\\<).+(alert|onload|onerror|onmouseover|onclick|onsubmit).*>$/i;
-	console.log(str);
-	// console.log(patt1.test(str));
-	return patt1.test(str) || patt2.test(str) || patt3.test(str) ;
+	// console.log(str);
+	var patt1 = /<[ ]*\/?[ ]*(script|meta|link|frame|iframe).*>/is;
+	var patt2 = /(<|\\<).+(ondblclick|onclick|onkeydown|onkeypress|onkeyup|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onload|onunload|onerror)=.*(\".*\"|>)$/is;
+	var patt3 = /<.+(javascript\s*:).*(\".*\"|>)$/is ;
+	var patt4 = /(<|\\<).+alert.*(\".*\"|>)$/i;
+	return patt1.test(str) || patt2.test(str) || patt3.test(str) || patt4.test(str) ;
 }
 
 chrome.webRequest.onBeforeRequest.addListener(
